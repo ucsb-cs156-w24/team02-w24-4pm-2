@@ -4,6 +4,15 @@ Instructions: <https://ucsb-cs156.github.io/w24/lab/team02.html>
 
 TODO: Add a link to the deployed Dokku app for your team here, e.g.
 
+| Name         | GitHub Id                                           | Table                       | 
+|--------------|-----------------------------------------------------|-----------------------------|
+| Bharat Kathi | [bk1031](https://github.com/bk1031)                 | `Articles`                  |
+| Alex Lim     | [alexlim-pro](https://github.com/alexlim-pro)       | `Recommendation Request`    | 
+| Angelina Suy | [ahjsuy](https://github.com/ahjsuy)                 | `Menu Item Reviews`         | 
+| Ritu Kirsur  | [rkirsur](https://github.com/bk1031)                | `Help Request`              |
+| Kyle Kumar   | [kylebkumar](https://github.com/kylebkumar)         | `UCSB Dining Commons`       | 
+| Rohan Kumar  | [rohankumar2025](https://github.com/rohankumar2025) | `UCSB Organization`         | 
+
 Deployments:
 
 * Prod: <https://team02.dokku-17.cs.ucsb.edu>
