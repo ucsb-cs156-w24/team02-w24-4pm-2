@@ -30,7 +30,7 @@
                         "primaryKeyName": "CONSTRAINT_1"
                       },
                       "name": "ID",
-                      "type": "LONG"
+                      "type": "BIGINT"
                     }
                   },
                   {
@@ -60,7 +60,7 @@
                   {
                     "column": {
                       "name": "ITEM_ID",
-                      "type": "LONG"
+                      "type": "BIGINT"
                     }
                   }
                 ],
