@@ -59,7 +59,7 @@
                   },
                   {
                     "column": {
-                      "name": "ITEMID",
+                      "name": "ITEM_ID",
                       "type": "LONG"
                     }
                   }
