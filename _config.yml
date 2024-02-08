@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-w24/team02-w24-4pm-2
 owner: ucsb-cs156-w24
 repo_name: team02-w24-4pm-2
-pull_requests: [{"author":{"id":"U_kgDOBXgO1Q","is_bot":false,"login":"rohankumar2025","name":""},"headRefName":"Rohan-UCSBOrg","number":43,"title":"added ucsborganization entity, repository, controller, and tests","url":"https://github.com/ucsb-cs156-w24/team02-w24-4pm-2/pull/43"}]
+pull_requests: [{"author":{"id":"U_kgDOBX2mjA","is_bot":false,"login":"ahjsuy","name":""},"headRefName":"Angelina-MenuReviewsTable","number":44,"title":"AS - added menuitemreviews db table","url":"https://github.com/ucsb-cs156-w24/team02-w24-4pm-2/pull/44"},{"author":{"id":"U_kgDOBXgO1Q","is_bot":false,"login":"rohankumar2025","name":""},"headRefName":"Rohan-UCSBOrg","number":43,"title":"added ucsborganization entity, repository, controller, and tests","url":"https://github.com/ucsb-cs156-w24/team02-w24-4pm-2/pull/43"}]
