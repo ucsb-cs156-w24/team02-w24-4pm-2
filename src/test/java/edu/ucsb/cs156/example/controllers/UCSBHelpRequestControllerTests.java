@@ -130,7 +130,7 @@ public class UCSBHelpRequestControllerTests extends ControllerTestCase {
                                 .teamId("s22-5pm-3")
                                 .tableOrBreakoutRoom("7")
                                 .explanation("Need help with Swagger-ui")
-                                .solved(false)
+                                .solved(true)
                                 .requestTime(ldt1)
                                 .build();
 
@@ -138,7 +138,7 @@ public class UCSBHelpRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/ucsbhelprequest/post?requesterEmail=cgaucho@ucsb.edu&teamId=s22-5pm-3&tableOrBreakoutRoom=7&explanation=Need help with Swagger-ui&solved=false&requestTime=2022-04-20T17:35")
+                                post("/api/ucsbhelprequest/post?requesterEmail=cgaucho@ucsb.edu&teamId=s22-5pm-3&tableOrBreakoutRoom=7&explanation=Need help with Swagger-ui&solved=true&requestTime=2022-04-20T17:35")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -281,10 +281,10 @@ public class UCSBHelpRequestControllerTests extends ControllerTestCase {
                                 .build();
 
                 UCSBHelpRequest ucsbHelpRequestEdited = UCSBHelpRequest.builder()
-                                .requesterEmail("cgaucho@ucsb.edu")
-                                .teamId("s22-5pm-3")
-                                .tableOrBreakoutRoom("7")
-                                .explanation("Need help with Swagger-ui")
+                                .requesterEmail("dplaya@ucsb.edu")
+                                .teamId("s22-5pm-4")
+                                .tableOrBreakoutRoom("8")
+                                .explanation("Need help with mutation tests")
                                 .solved(true)
                                 .requestTime(ldt2)
                                 .build();
