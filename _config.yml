@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-w24/team02-w24-4pm-2
 owner: ucsb-cs156-w24
 repo_name: team02-w24-4pm-2
-pull_requests: [{"author":{"id":"U_kgDOBX2mjA","is_bot":false,"login":"ahjsuy","name":""},"headRefName":"Angelina-MenuReviewsTable-Put","number":49,"title":"Angelina menu reviews table put","url":"https://github.com/ucsb-cs156-w24/team02-w24-4pm-2/pull/49"},{"author":{"id":"MDQ6VXNlcjYxNjM1Njk1","is_bot":false,"login":"rkirsur","name":"Ritu Kirsur"},"headRefName":"Ritu-HelpRequestTable","number":47,"title":"created database table for HelpRequest","url":"https://github.com/ucsb-cs156-w24/team02-w24-4pm-2/pull/47"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjYxNjM1Njk1","is_bot":false,"login":"rkirsur","name":"Ritu Kirsur"},"headRefName":"Ritu-HelpRequestTable","number":47,"title":"created database table for HelpRequest","url":"https://github.com/ucsb-cs156-w24/team02-w24-4pm-2/pull/47"}]
