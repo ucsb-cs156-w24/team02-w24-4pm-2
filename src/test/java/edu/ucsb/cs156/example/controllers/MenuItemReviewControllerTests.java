@@ -42,7 +42,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
         @MockBean
         UserRepository userRepository;
 
-        // Tests for GET /api/ucsbdates/all
+        // Tests for GET /api/menuitemreviews/all
         
         @Test
         public void logged_out_users_cannot_get_all() throws Exception {
@@ -99,7 +99,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
-        // Tests for POST /api/ucsbdates/post...
+        // Tests for POST /api/menuitemreviews/post...
 
         @Test
         public void logged_out_users_cannot_post() throws Exception {
@@ -143,7 +143,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
-        // Tests for GET /api/ucsbdates?id=...
+        // Tests for GET /api/menuitemreviews?id=...
 
         @Test
         public void logged_out_users_cannot_get_by_id() throws Exception {
@@ -200,7 +200,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 assertEquals("MenuItemReview with id 7 not found", json.get("message"));
         }
 
-        // Tests for DELETE /api/ucsbdates?id=... 
+        // Tests for DELETE /api/menuitemreviews?id=... 
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
@@ -253,7 +253,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 assertEquals("MenuItemReview with id 15 not found", json.get("message"));
         }
 
-        // Tests for PUT /api/ucsbdates?id=... 
+        // Tests for PUT /api/menuitemreviews?id=... 
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
