@@ -50,7 +50,7 @@ import java.time.LocalDateTime;
     public UCSBDate postUCSBDate(
             @Parameter(name=&quot;quarterYYYYQ&quot;) @RequestParam String quarterYYYYQ,
             @Parameter(name=&quot;name&quot;) @RequestParam String name,
-            @Parameter(name=&quot;date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)&quot;) @RequestParam(&quot;localDateTime&quot;) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime)
+            @Parameter(name=&quot;localDateTime&quot;, description=&quot;date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)&quot;) @RequestParam(&quot;localDateTime&quot;) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime)
             throws JsonProcessingException {
 
         // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
