@@ -32,13 +32,13 @@ import javax.validation.Valid;
 public class UCSBDiningCommonsMenuItemController extends ApiController {
 
     @Autowired
-    UCSBDiningCommonsMenuItemRepository UCSBDiningCommonsMenuItemRepository;
+    UCSBDiningCommonsMenuItemRepository ucsbDiningCommonsMenuItemRepository;
 
     @Operation(summary= "List all ucsb dining commons menu items")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<UCSBDiningCommonsMenuItem> allUCSBDiningCommonsMenuItems() {
-        Iterable<UCSBDiningCommonsMenuItem> dates = UCSBDiningCommonsMenuItemRepository.findAll();
+        Iterable<UCSBDiningCommonsMenuItem> dates = ucsbDiningCommonsMenuItemRepository.findAll();
         return dates;
     }
 
@@ -56,10 +56,23 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         ucsbDiningCommonsMenuItem.setStation(station);
         ucsbDiningCommonsMenuItem.setDiningCommonsCode(diningCommonsCode);
 
-        UCSBDiningCommonsMenuItem savedUCSBDiningCommonsMenuItem = UCSBDiningCommonsMenuItemRepository.save(ucsbDiningCommonsMenuItem);
+        UCSBDiningCommonsMenuItem savedUCSBDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.save(ucsbDiningCommonsMenuItem);
 
         return savedUCSBDiningCommonsMenuItem;
     }
+
+    @Operation(summary= "Get a single menu item")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public UCSBDiningCommonsMenuItem getById(
+            @Parameter(name="id") @RequestParam Long id) {
+        UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+        return ucsbDiningCommonsMenuItem;
+    }
+
+    
 
 
 
