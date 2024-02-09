@@ -1,0 +1,59 @@
+{ "databaseChangeLog": [
+    {
+        "changeSet": {
+          "id": "UCSBDiningCommonsMenuItem-1",
+          "author": "MattP",
+          "preConditions": [
+            {
+              "onFail": "MARK_RAN"
+            },
+            {
+              "not": [
+                {
+                  "tableExists": {
+                    "tableName": "UCSBDININGCOMMONSMENUITEM"
+                  }
+                }
+              ]
+            }
+          ],
+          "changes": [
+            {
+              "createTable": {
+                "columns": [
+                  {
+                    "column": {
+                        "autoIncrement": true,
+                        "constraints": {
+                        "primaryKey": true,
+                        "primaryKeyName": "CONSTRAINT_33"
+                        },
+                        "name": "ID",
+                        "type": "BIGINT"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "DINING_COMMONS_CODE",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "NAME",
+                      "type": "VARCHAR(255)"
+                    }
+                  },{
+                    "column": {
+                      "name": "STATION",
+                      "type": "VARCHAR(255)"
+                    }
+                  }]
+                ,
+                "tableName": "UCSBDININGCOMMONSMENUITEM"
+              }
+            }]
+
+        }
+    }
+]}
