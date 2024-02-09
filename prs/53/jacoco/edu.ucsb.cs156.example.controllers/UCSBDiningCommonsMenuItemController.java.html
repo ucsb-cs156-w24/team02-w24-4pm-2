@@ -92,17 +92,7 @@ import javax.validation.Valid;
 <span class="fc" id="L92">        return ucsbDiningCommonsMenuItem;</span>
     }
 
-    @Operation(summary= &quot;Delete a dining commons menu item&quot;)
-    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    @DeleteMapping(&quot;&quot;)
-    public Object deleteUCSBDiningCommonsMenuItem(
-            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
-<span class="fc" id="L100">        UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.findById(id)</span>
-<span class="fc" id="L101">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));</span>
-
-<span class="fc" id="L103">        ucsbDiningCommonsMenuItemRepository.delete(ucsbDiningCommonsMenuItem);</span>
-<span class="fc" id="L104">        return genericMessage(&quot;UCSBDiningCommonsMenuItem with id %s deleted&quot;.formatted(id));</span>
-    }
+    
 
 }
 
