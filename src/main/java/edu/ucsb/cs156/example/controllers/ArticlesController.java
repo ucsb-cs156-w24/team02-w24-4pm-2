@@ -52,7 +52,7 @@ public class ArticlesController extends ApiController {
             @Parameter(name="url", example="https://twitter.com/maciejwalkowiak/status/1511736828369719300?t=gGXpmBH4y4eY9OBSUInZEg&s=09") @RequestParam String url,
             @Parameter(name="explanation", example="A lot of really useful classes are built into Spring") @RequestParam String explanation,
             @Parameter(name="email", example="bkathi@ucsb.edu") @RequestParam String email,
-            @Parameter(name="dateAdded", example="2022-04-19", description="must be in iso format (YYYY-mm-ddTHH:MM:SS)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
+            @Parameter(name="dateAdded", example="2024-02-09T12:00:00", description="must be in iso format (YYYY-mm-ddTHH:MM:SS)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
             throws JsonProcessingException {
 
         log.info("dateAdded={}", dateAdded);
@@ -73,9 +73,8 @@ public class ArticlesController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
     public Articles getById(
-            @Parameter(name="id") @RequestParam Long id) {
-        Articles article = articlesRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
+            @Parameter(name="id", example="1") @RequestParam Long id) {
+        Articles article = articlesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 
         return article;
     }
@@ -84,9 +83,8 @@ public class ArticlesController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteArticle(
-            @Parameter(name="id") @RequestParam Long id) {
-        Articles article = articlesRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
+            @Parameter(name="id", example="1") @RequestParam Long id) {
+        Articles article = articlesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 
         articlesRepository.delete(article);
         return genericMessage("Articles with id %s deleted".formatted(id));
@@ -96,11 +94,10 @@ public class ArticlesController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
     public Articles updateArticle(
-            @Parameter(name="id") @RequestParam Long id,
+            @Parameter(name="id", example="1") @RequestParam Long id,
             @RequestBody @Valid Articles incoming) {
 
-        Articles article = articlesRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
+        Articles article = articlesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 
         article.setTitle(incoming.getTitle());
         article.setUrl(incoming.getUrl());
