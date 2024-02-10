@@ -3,7 +3,7 @@
     {
       "changeSet": {
         "id": "Articles-1",
-        "author": "ShashankB",
+        "author": "bkathi",
         "preConditions": [
           {
             "onFail": "MARK_RAN"
@@ -27,7 +27,7 @@
                     "autoIncrement": true,
                     "constraints": {
                       "primaryKey": true,
-                      "primaryKeyName": "CONSTRAINT_3"
+                      "primaryKeyName": "CONSTRAINT_31"
                     },
                     "name": "ID",
                     "type": "BIGINT"
@@ -59,7 +59,7 @@
                 },
                 {
                   "column": {
-                    "name": "LOCAL_DATE_TIME",
+                    "name": "DATE_ADDED",
                     "type": "TIMESTAMP"
                   }
                 }
