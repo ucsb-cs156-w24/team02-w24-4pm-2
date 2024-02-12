@@ -53,15 +53,16 @@ public class RecommendationRequestController extends ApiController {
             @Parameter(name = "requesterEmail") @RequestParam String requesterEmail,
             @Parameter(name = "professorEmail") @RequestParam String professorEmail,
             @Parameter(name = "explanation") @RequestParam String explanation,
-            @Parameter(name="deadline") @RequestParam("deadline") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime deadline)
+            @Parameter(name="dateRequested", description = "Date in ISO format (e.g., YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
+            @Parameter(name="dateNeeded", description = "Date in ISO format (e.g., YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
             throws JsonProcessingException {
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        // LocalDateTime currentDateTime = LocalDateTime.now();
         RecommendationRequest recommendationRequest = new RecommendationRequest();
         recommendationRequest.setRequesterEmail(requesterEmail);
         recommendationRequest.setProfessorEmail(professorEmail);
         recommendationRequest.setExplanation(explanation);
-        recommendationRequest.setDateRequested(currentDateTime);
-        recommendationRequest.setDateNeeded(deadline);
+        recommendationRequest.setDateRequested(dateRequested);
+        recommendationRequest.setDateNeeded(dateNeeded);
         recommendationRequest.setDone(false);
         RecommendationRequest savedRecommendationRequest = recommendationRequestsRepository.save(recommendationRequest);
         return savedRecommendationRequest;
