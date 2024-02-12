@@ -53,7 +53,6 @@ public class RecommendationRequestsController extends ApiController {
             @Parameter(name = "requesterEmail") @RequestParam String requesterEmail,
             @Parameter(name = "professorEmail") @RequestParam String professorEmail,
             @Parameter(name = "explanation") @RequestParam String explanation,
-            // @Parameter(name = "dateNeeded (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
             @Parameter(name="deadline") @RequestParam("deadline") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime deadline)
             throws JsonProcessingException {
         LocalDateTime currentDateTime = LocalDateTime.now();
