@@ -1,9 +1,9 @@
 package edu.ucsb.cs156.example.controllers;
 
-import edu.ucsb.cs156.example.entities.RecommendationRequests;
+import edu.ucsb.cs156.example.entities.RecommendationRequest;
 import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
-import edu.ucsb.cs156.example.repositories.RecommendationRequestsRepository;
+import edu.ucsb.cs156.example.repositories.RecommendationRequestRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,47 +33,47 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/recommendationrequests")
 @RestController
 @Slf4j
-public class RecommendationRequestsController extends ApiController {
+public class RecommendationRequestController extends ApiController {
 
     @Autowired
-    RecommendationRequestsRepository recommendationRequestsRepository;
+    RecommendationRequestRepository recommendationRequestsRepository;
 
     @Operation(summary= "List all recommendation requests")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<RecommendationRequests> allRecommendationRequests() {
-        Iterable<RecommendationRequests> dates = recommendationRequestsRepository.findAll();
+    public Iterable<RecommendationRequest> allRecommendationRequests() {
+        Iterable<RecommendationRequest> dates = recommendationRequestsRepository.findAll();
         return dates;
     }
 
     @Operation(summary= "Create a new recommendation request")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
-    public RecommendationRequests postRecommendationRequests(
+    public RecommendationRequest postRecommendationRequests(
             @Parameter(name = "requesterEmail") @RequestParam String requesterEmail,
             @Parameter(name = "professorEmail") @RequestParam String professorEmail,
             @Parameter(name = "explanation") @RequestParam String explanation,
             @Parameter(name="deadline") @RequestParam("deadline") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime deadline)
             throws JsonProcessingException {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        RecommendationRequests recommendationRequest = new RecommendationRequests();
+        RecommendationRequest recommendationRequest = new RecommendationRequest();
         recommendationRequest.setRequesterEmail(requesterEmail);
         recommendationRequest.setProfessorEmail(professorEmail);
         recommendationRequest.setExplanation(explanation);
         recommendationRequest.setDateRequested(currentDateTime);
         recommendationRequest.setDateNeeded(deadline);
         recommendationRequest.setDone(false);
-        RecommendationRequests savedRecommendationRequest = recommendationRequestsRepository.save(recommendationRequest);
+        RecommendationRequest savedRecommendationRequest = recommendationRequestsRepository.save(recommendationRequest);
         return savedRecommendationRequest;
     }
 
     @Operation(summary= "Get a recommendation request by id")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
-    public RecommendationRequests getById(
+    public RecommendationRequest getById(
             @Parameter(name="id") @RequestParam Long id) {
-        RecommendationRequests recommendationRequest = recommendationRequestsRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequests.class, id));
+        RecommendationRequest recommendationRequest = recommendationRequestsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
 
         return recommendationRequest;
     }
@@ -83,8 +83,8 @@ public class RecommendationRequestsController extends ApiController {
     @DeleteMapping("")
     public Object deleteRecommendationRequest(
             @Parameter(name="id") @RequestParam Long id) {
-        RecommendationRequests recommendationRequest = recommendationRequestsRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequests.class, id));
+        RecommendationRequest recommendationRequest = recommendationRequestsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
 
         recommendationRequestsRepository.delete(recommendationRequest);
         return genericMessage("Recommendation Request with id %s deleted".formatted(id));
@@ -93,12 +93,12 @@ public class RecommendationRequestsController extends ApiController {
     @Operation(summary= "Update a Recommendation Request")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
-    public RecommendationRequests updateRecommendationRequests(
+    public RecommendationRequest updateRecommendationRequests(
             @Parameter(name="id") @RequestParam Long id,
-            @RequestBody @Valid RecommendationRequests incoming) {
+            @RequestBody @Valid RecommendationRequest incoming) {
 
-        RecommendationRequests recommendationRequest = recommendationRequestsRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequests.class, id));
+        RecommendationRequest recommendationRequest = recommendationRequestsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
         
         recommendationRequest.setRequesterEmail(incoming.getRequesterEmail());
         recommendationRequest.setProfessorEmail(incoming.getProfessorEmail());
