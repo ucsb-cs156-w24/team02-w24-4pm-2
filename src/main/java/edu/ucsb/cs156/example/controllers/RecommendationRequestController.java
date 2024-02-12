@@ -1,7 +1,6 @@
 package edu.ucsb.cs156.example.controllers;
 
 import edu.ucsb.cs156.example.entities.RecommendationRequest;
-import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.RecommendationRequestRepository;
 
@@ -88,7 +87,7 @@ public class RecommendationRequestController extends ApiController {
                 .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
 
         recommendationRequestsRepository.delete(recommendationRequest);
-        return genericMessage("Recommendation Request with id %s deleted".formatted(id));
+        return genericMessage("RecommendationRequest with id %s deleted".formatted(id));
     }
 
     @Operation(summary= "Update a Recommendation Request")

@@ -139,7 +139,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                post("/api/recommendationrequest/post?requesterEmail=requester1%40gmail.com&professorEmail=professor1%40gmail.com&explanation=explanation%20for%20request%201&dateRequested=2022-01-03T00%3A00%3A00&dateNeeded=2024-02-04T01%3A02%3A03")
+                post("/api/recommendationrequest/post?requesterEmail=requester1@gmail.com&professorEmail=professor1@gmail.com&explanation=explanation for request 1&dateRequested=2022-01-03T00:00:00&dateNeeded=2024-02-04T01:02:03")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -240,12 +240,12 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
         verify(recommendationRequestRepository, times(1)).delete(any());
 
         Map<String, Object> json = responseToJson(response);
-        assertEquals("UCSBDate with id 15 deleted", json.get("message"));
+        assertEquals("RecommendationRequest with id 15 deleted", json.get("message"));
     }
 
     @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
-    public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
+    public void admin_tries_to_delete_non_existant_recommendationrequest_and_gets_right_error_message()
             throws Exception {
         // arrange
 
@@ -267,7 +267,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
     @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
-    public void admin_can_edit_an_existing_ucsbdate() throws Exception {
+    public void admin_can_edit_an_existing_recommendationrequest() throws Exception {
         // arrange
 
         LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
