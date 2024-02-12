@@ -272,8 +272,8 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
         LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
         LocalDateTime ldt2 = LocalDateTime.parse("2024-02-04T01:02:03");
-        LocalDateTime ldt3 = LocalDateTime.parse("20222-01-11T00:00:00");
-        LocalDateTime ldt4 = LocalDateTime.parse("20242-02-12T01:02:03");
+        LocalDateTime ldt3 = LocalDateTime.parse("2025-01-11T00:00:00");
+        LocalDateTime ldt4 = LocalDateTime.parse("2026-02-12T01:02:03");
 
         RecommendationRequest recommendationRequestOrig = RecommendationRequest.builder()
                 .requesterEmail("requester1@gmail.com")
