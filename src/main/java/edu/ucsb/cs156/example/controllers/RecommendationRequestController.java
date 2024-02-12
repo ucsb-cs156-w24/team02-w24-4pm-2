@@ -29,8 +29,8 @@ import javax.validation.Valid;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-@Tag(name = "RecommendationRequests")
-@RequestMapping("/api/recommendationrequests")
+@Tag(name = "RecommendationRequest")
+@RequestMapping("/api/recommendationrequest")
 @RestController
 @Slf4j
 public class RecommendationRequestController extends ApiController {
