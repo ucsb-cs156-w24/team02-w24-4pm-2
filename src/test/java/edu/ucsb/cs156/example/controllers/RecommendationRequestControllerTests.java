@@ -17,6 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -150,6 +152,43 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
+    @WithMockUser(roles = { "ADMIN", "USER" })
+    @Test
+    public void testPostRecommendationRequests() throws Exception {
+        // arrange
+        LocalDateTime dateRequested = LocalDateTime.parse("2022-01-03T00:00:00");
+        LocalDateTime dateNeeded = LocalDateTime.parse("2024-02-04T01:02:03");
+
+        RecommendationRequest recommendationRequest1 = RecommendationRequest.builder()
+                .requesterEmail("requester1@gmail.com")
+                .professorEmail("professor1@gmail.com")
+                .explanation("explanation for request 1")
+                .dateRequested(dateRequested)
+                .dateNeeded(dateNeeded)
+                .done(false)
+                .build();
+
+        when(recommendationRequestRepository.save(any())).thenReturn(recommendationRequest1);
+
+        // act
+        MvcResult response = mockMvc.perform(
+                post("/api/recommendationrequest/post")
+                        .param("requesterEmail", "requester1@gmail.com")
+                        .param("professorEmail", "professor1@gmail.com")
+                        .param("explanation", "explanation for request 1")
+                        .param("dateRequested", "2022-01-03T00:00:00")
+                        .param("dateNeeded", "2024-02-04T01:02:03")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // assert
+        verify(recommendationRequestRepository, times(1)).save(any());
+        String expectedJson = mapper.writeValueAsString(recommendationRequest1);
+        String responseString = response.getResponse().getContentAsString();
+        assertEquals(expectedJson, responseString);
+    }
+
     // Tests for GET /api/recommendationrequest?id=...
 
     @Test
@@ -225,7 +264,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 .dateRequested(ldt1)
                 .dateNeeded(ldt2)
                 .done(false)
-                .build(); 
+                .build();
 
         when(recommendationRequestRepository.findById(eq(15L))).thenReturn(Optional.of(recommendationRequest));
 
@@ -308,7 +347,8 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
         // assert
         verify(recommendationRequestRepository, times(1)).findById(67L);
-        verify(recommendationRequestRepository, times(1)).save(recommendationRequestEdited); // should be saved with correct user
+        verify(recommendationRequestRepository, times(1)).save(recommendationRequestEdited); // should be saved with
+                                                                                             // correct user
         String responseString = response.getResponse().getContentAsString();
         assertEquals(requestBody, responseString);
     }
@@ -356,7 +396,8 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
         // assert
         verify(recommendationRequestRepository, times(1)).findById(67L);
-        verify(recommendationRequestRepository, times(1)).save(recommendationRequestEdited); // should be saved with correct user
+        verify(recommendationRequestRepository, times(1)).save(recommendationRequestEdited); // should be saved with
+                                                                                             // correct user
         String responseString = response.getResponse().getContentAsString();
         assertEquals(requestBody, responseString);
     }
