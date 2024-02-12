@@ -34,6 +34,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @WebMvcTest(controllers = RecommendationRequestController.class)
 @Import(TestConfig.class)
 public class RecommendationRequestControllerTests extends ControllerTestCase {
@@ -138,6 +141,42 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 .build();
 
         when(recommendationRequestRepository.save(eq(recommendationRequest1))).thenReturn(recommendationRequest1);
+
+        // act
+        MvcResult response = mockMvc.perform(
+                post("/api/recommendationrequest/post?requesterEmail=requester1@gmail.com&professorEmail=professor1@gmail.com&explanation=explanation for request 1&dateRequested=2022-01-03T00:00:00&dateNeeded=2024-02-04T01:02:03")
+                        .with(csrf()))
+                .andExpect(status().isOk()).andReturn();
+
+        log.info("response={}", response.getResponse().getContentAsString());
+
+        // assert
+        verify(recommendationRequestRepository, times(1)).save(recommendationRequest1);
+        String expectedJson = mapper.writeValueAsString(recommendationRequest1);
+        String responseString = response.getResponse().getContentAsString();
+        assertEquals(expectedJson, responseString);
+    }
+
+    @WithMockUser(roles = { "ADMIN", "USER" })
+    @Test
+    public void recommendationreqestpost_not_null() throws Exception {
+        // arrange
+
+        LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+        LocalDateTime ldt2 = LocalDateTime.parse("2024-02-04T01:02:03");
+
+        RecommendationRequest recommendationRequest1 = RecommendationRequest.builder()
+                .requesterEmail("requester1@gmail.com")
+                .professorEmail("professor1@gmail.com")
+                .explanation("explanation for request 1")
+                .dateRequested(ldt1)
+                .dateNeeded(ldt2)
+                .done(false)
+                .build();
+
+        when(recommendationRequestRepository.save(eq(recommendationRequest1))).thenReturn(recommendationRequest1);
+
+        when(recommendationRequestRepository.findById(eq(7L))).thenReturn(Optional.of(recommendationRequest1));
 
         // act
         MvcResult response = mockMvc.perform(
