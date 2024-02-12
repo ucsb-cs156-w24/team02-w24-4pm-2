@@ -189,6 +189,90 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
+    // Test for when all parameters are provided correctly
+    @WithMockUser(roles = { "ADMIN" })
+    @Test
+    public void testPostRecommendationRequests_AllParametersCorrect() throws Exception {
+        // Arrange
+        LocalDateTime dateRequested = LocalDateTime.parse("2022-01-03T00:00:00");
+        LocalDateTime dateNeeded = LocalDateTime.parse("2024-02-04T01:02:03");
+
+        RecommendationRequest recommendationRequest1 = RecommendationRequest.builder()
+                .requesterEmail("requester1@gmail.com")
+                .professorEmail("professor1@gmail.com")
+                .explanation("explanation for request 1")
+                .dateRequested(dateRequested)
+                .dateNeeded(dateNeeded)
+                .done(false)
+                .build();
+
+        when(recommendationRequestRepository.save(any())).thenReturn(recommendationRequest1);
+
+        // Act
+        MvcResult response = mockMvc.perform(
+                post("/api/recommendationrequest/post")
+                        .param("requesterEmail", "requester1@gmail.com")
+                        .param("professorEmail", "professor1@gmail.com")
+                        .param("explanation", "explanation for request 1")
+                        .param("dateRequested", "2022-01-03T00:00:00")
+                        .param("dateNeeded", "2024-02-04T01:02:03")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Assert
+        verify(recommendationRequestRepository, times(1)).save(any());
+        String expectedJson = mapper.writeValueAsString(recommendationRequest1);
+        String responseString = response.getResponse().getContentAsString();
+        assertEquals(expectedJson, responseString);
+    }
+
+    // Test for when some parameters are missing
+    @WithMockUser(roles = { "ADMIN" })
+    @Test
+    public void testPostRecommendationRequests_MissingParameters() throws Exception {
+        // Act & Assert
+        mockMvc.perform(
+                post("/api/recommendationrequest/post")
+                        .param("requesterEmail", "requester1@gmail.com")
+                        .param("explanation", "explanation for request 1")
+                        .param("dateRequested", "2022-01-03T00:00:00")
+                        .with(csrf()))
+                .andExpect(status().isBadRequest()); // Should return 400 Bad Request
+    }
+
+    // Test for when parameters are provided in incorrect formats
+    @WithMockUser(roles = { "ADMIN" })
+    @Test
+    public void testPostRecommendationRequests_IncorrectDateFormat() throws Exception {
+        // Act & Assert
+        mockMvc.perform(
+                post("/api/recommendationrequest/post")
+                        .param("requesterEmail", "requester1@gmail.com")
+                        .param("professorEmail", "professor1@gmail.com")
+                        .param("explanation", "explanation for request 1")
+                        .param("dateRequested", "2022-01-03") // Incorrect format
+                        .param("dateNeeded", "2024-02-04T01:02:03")
+                        .with(csrf()))
+                .andExpect(status().isBadRequest()); // Should return 400 Bad Request
+    }
+
+    // Test for when a non-admin user tries to make a request
+    @WithMockUser(roles = { "USER" }) // Non-admin role
+    @Test
+    public void testPostRecommendationRequests_NonAdminUser() throws Exception {
+        // Act & Assert
+        mockMvc.perform(
+                post("/api/recommendationrequest/post")
+                        .param("requesterEmail", "requester1@gmail.com")
+                        .param("professorEmail", "professor1@gmail.com")
+                        .param("explanation", "explanation for request 1")
+                        .param("dateRequested", "2022-01-03T00:00:00")
+                        .param("dateNeeded", "2024-02-04T01:02:03")
+                        .with(csrf()))
+                .andExpect(status().isForbidden()); // Should return 403 Forbidden
+    }
+
     // Tests for GET /api/recommendationrequest?id=...
 
     @Test
@@ -436,6 +520,5 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
         verify(recommendationRequestRepository, times(1)).findById(67L);
         Map<String, Object> json = responseToJson(response);
         assertEquals("RecommendationRequest with id 67 not found", json.get("message"));
-
     }
 }
