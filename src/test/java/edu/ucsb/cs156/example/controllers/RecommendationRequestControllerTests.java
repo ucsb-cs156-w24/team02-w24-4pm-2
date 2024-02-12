@@ -148,8 +148,6 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
-        log.info("response={}", response.getResponse().getContentAsString());
-
         // assert
         verify(recommendationRequestRepository, times(1)).save(recommendationRequest1);
         String expectedJson = mapper.writeValueAsString(recommendationRequest1);
