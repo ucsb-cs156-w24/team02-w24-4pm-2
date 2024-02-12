@@ -105,11 +105,7 @@ public class RecommendationRequestController extends ApiController {
         recommendationRequest.setExplanation(incoming.getExplanation());
         recommendationRequest.setDateRequested(incoming.getDateRequested());
         recommendationRequest.setDateNeeded(incoming.getDateNeeded());
-        if (incoming.getDone()) {
-            recommendationRequest.setDone(incoming.getDone());
-        } else {
-            recommendationRequest.setDone(false);
-        }
+        recommendationRequest.setDone(incoming.getDone());
 
         recommendationRequestsRepository.save(recommendationRequest);
 
