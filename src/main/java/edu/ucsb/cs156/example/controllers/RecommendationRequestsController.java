@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Tag(name = "RecommendationRequests")
@@ -52,15 +53,16 @@ public class RecommendationRequestsController extends ApiController {
             @Parameter(name = "requesterEmail") @RequestParam String requesterEmail,
             @Parameter(name = "professorEmail") @RequestParam String professorEmail,
             @Parameter(name = "explanation") @RequestParam String explanation,
-            @Parameter(name = "dateRequested (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
-            @Parameter(name = "dateNeeded (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
+            // @Parameter(name = "dateNeeded (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
+            @Parameter(name="deadline") @RequestParam("deadline") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime deadline)
             throws JsonProcessingException {
+        LocalDateTime currentDateTime = LocalDateTime.now();
         RecommendationRequests recommendationRequest = new RecommendationRequests();
         recommendationRequest.setRequesterEmail(requesterEmail);
         recommendationRequest.setProfessorEmail(professorEmail);
         recommendationRequest.setExplanation(explanation);
-        recommendationRequest.setDateRequested(dateRequested);
-        recommendationRequest.setDateNeeded(dateNeeded);
+        recommendationRequest.setDateRequested(currentDateTime);
+        recommendationRequest.setDateNeeded(deadline);
         recommendationRequest.setDone(false);
         RecommendationRequests savedRecommendationRequest = recommendationRequestsRepository.save(recommendationRequest);
         return savedRecommendationRequest;
@@ -97,7 +99,7 @@ public class RecommendationRequestsController extends ApiController {
             @RequestBody @Valid RecommendationRequests incoming) {
 
         RecommendationRequests recommendationRequest = recommendationRequestsRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBDate.class, id));
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequests.class, id));
         
         recommendationRequest.setRequesterEmail(incoming.getRequesterEmail());
         recommendationRequest.setProfessorEmail(incoming.getProfessorEmail());
