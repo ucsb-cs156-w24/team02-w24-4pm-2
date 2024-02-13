@@ -27,7 +27,7 @@
                       "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "CONSTRAINT_5"
+                        "primaryKeyName": "CONSTRAINT_45"
                       },
                       "name": "ID",
                       "type": "BIGINT"
@@ -35,7 +35,7 @@
                   },
                   {
                     "column": {
-                      "name": "LOCAL_DATE_TIME",
+                      "name": "REQUEST_TIME",
                       "type": "TIMESTAMP"
                     }
                   },
