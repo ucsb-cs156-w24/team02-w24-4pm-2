@@ -1,0 +1,80 @@
+{
+    "databaseChangeLog": [
+      {
+        "changeSet": {
+          "id": "UCSBHelpRequest-1",
+          "author": "RituK",
+          "preConditions": [
+            {
+              "onFail": "MARK_RAN"
+            },
+            {
+              "not": [
+                {
+                  "tableExists": {
+                    "tableName": "UCSBHELPREQUEST"
+                  }
+                }
+              ]
+            }
+          ],
+          "changes": [
+            {
+              "createTable": {
+                "columns": [
+                  {
+                    "column": {
+                      "autoIncrement": true,
+                      "constraints": {
+                        "primaryKey": true,
+                        "primaryKeyName": "CONSTRAINT_5"
+                      },
+                      "name": "ID",
+                      "type": "BIGINT"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "LOCAL_DATE_TIME",
+                      "type": "TIMESTAMP"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "REQUESTER_EMAIL",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "TEAM_ID",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                        "name": "TABLE_OR_BREAKOUT_ROOM",
+                        "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                        "name": "EXPLANATION",
+                        "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                        "name": "SOLVED",
+                        "type": "BOOLEAN"
+                    }
+                  }
+                ],
+                "tableName": "UCSBHELPREQUEST"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
