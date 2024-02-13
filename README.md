@@ -2,8 +2,6 @@
 
 Instructions: <https://ucsb-cs156.github.io/w24/lab/team02.html>
 
-TODO: Add a link to the deployed Dokku app for your team here, e.g.
-
 | Name         | GitHub Id                                           | Table                       | 
 |--------------|-----------------------------------------------------|-----------------------------|
 | Bharat Kathi | [bk1031](https://github.com/bk1031)                 | `Articles`                  |
@@ -15,8 +13,8 @@ TODO: Add a link to the deployed Dokku app for your team here, e.g.
 
 Deployments:
 
-* Prod: <https://team02.dokku-17.cs.ucsb.edu>
-* QA: <https://team02-qa.dokku-17.cs.ucsb.edu>
+* Prod: <https://team02.dokku-02.cs.ucsb.edu/>
+* QA: <https://team02-qa.dokku-02.cs.ucsb.edu/>
 
 # Setup before running application
 
