@@ -32,13 +32,13 @@ import javax.validation.Valid;
 <span class="fc" id="L32">public class UCSBDiningCommonsMenuItemController extends ApiController {</span>
 
     @Autowired
-    UCSBDiningCommonsMenuItemRepository UCSBDiningCommonsMenuItemRepository;
+    UCSBDiningCommonsMenuItemRepository ucsbDiningCommonsMenuItemRepository;
 
     @Operation(summary= &quot;List all ucsb dining commons menu items&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
     @GetMapping(&quot;/all&quot;)
     public Iterable&lt;UCSBDiningCommonsMenuItem&gt; allUCSBDiningCommonsMenuItems() {
-<span class="fc" id="L41">        Iterable&lt;UCSBDiningCommonsMenuItem&gt; dates = UCSBDiningCommonsMenuItemRepository.findAll();</span>
+<span class="fc" id="L41">        Iterable&lt;UCSBDiningCommonsMenuItem&gt; dates = ucsbDiningCommonsMenuItemRepository.findAll();</span>
 <span class="fc" id="L42">        return dates;</span>
     }
 
@@ -56,10 +56,23 @@ import javax.validation.Valid;
 <span class="fc" id="L56">        ucsbDiningCommonsMenuItem.setStation(station);</span>
 <span class="fc" id="L57">        ucsbDiningCommonsMenuItem.setDiningCommonsCode(diningCommonsCode);</span>
 
-<span class="fc" id="L59">        UCSBDiningCommonsMenuItem savedUCSBDiningCommonsMenuItem = UCSBDiningCommonsMenuItemRepository.save(ucsbDiningCommonsMenuItem);</span>
+<span class="fc" id="L59">        UCSBDiningCommonsMenuItem savedUCSBDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.save(ucsbDiningCommonsMenuItem);</span>
 
 <span class="fc" id="L61">        return savedUCSBDiningCommonsMenuItem;</span>
     }
+
+    @Operation(summary= &quot;Get a single menu item&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public UCSBDiningCommonsMenuItem getById(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L69">        UCSBDiningCommonsMenuItem ucsbDiningCommonsMenuItem = ucsbDiningCommonsMenuItemRepository.findById(id)</span>
+<span class="fc" id="L70">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));</span>
+
+<span class="fc" id="L72">        return ucsbDiningCommonsMenuItem;</span>
+    }
+
+    
 
 
 
