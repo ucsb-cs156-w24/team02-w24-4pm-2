@@ -49,11 +49,12 @@ public class RecommendationRequestController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public RecommendationRequest postRecommendationRequests(
-            @Parameter(name = "requesterEmail") @RequestParam String requesterEmail,
-            @Parameter(name = "professorEmail") @RequestParam String professorEmail,
-            @Parameter(name = "explanation") @RequestParam String explanation,
+            @Parameter(name = "requesterEmail", description = "The requester's email") @RequestParam String requesterEmail,
+            @Parameter(name = "professorEmail", description = "The professor's email") @RequestParam String professorEmail,
+            @Parameter(name = "explanation", description = "The program the recommendation is being usd for") @RequestParam String explanation,
             @Parameter(name="dateRequested", description = "Date in ISO format (e.g., YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
-            @Parameter(name="dateNeeded", description = "Date in ISO format (e.g., YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded)
+            @Parameter(name="dateNeeded", description = "Date in ISO format (e.g., YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded,
+            @Parameter(name="done", description = "Whether the request is done") @RequestParam boolean done)
             throws JsonProcessingException {
         RecommendationRequest recommendationRequest = new RecommendationRequest();
         recommendationRequest.setRequesterEmail(requesterEmail);
@@ -61,6 +62,7 @@ public class RecommendationRequestController extends ApiController {
         recommendationRequest.setExplanation(explanation);
         recommendationRequest.setDateRequested(dateRequested);
         recommendationRequest.setDateNeeded(dateNeeded);
+        recommendationRequest.setDone(done);
         RecommendationRequest savedRecommendationRequest = recommendationRequestsRepository.save(recommendationRequest);
         return savedRecommendationRequest;
     }

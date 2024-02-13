@@ -144,7 +144,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                post("/api/recommendationrequest/post?requesterEmail=requester1@gmail.com&professorEmail=professor1@gmail.com&explanation=explanation for request 1&dateRequested=2022-01-03T00:00:00&dateNeeded=2024-02-04T01:02:03")
+                post("/api/recommendationrequest/post?requesterEmail=requester1@gmail.com&professorEmail=professor1@gmail.com&explanation=explanation for request 1&dateRequested=2022-01-03T00:00:00&dateNeeded=2024-02-04T01:02:03&done=false")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -169,7 +169,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 .explanation("explanation for request 1")
                 .dateRequested(ldt1)
                 .dateNeeded(ldt2)
-                .done(false)
+                .done(true)
                 .build();
 
         when(recommendationRequestRepository.save(eq(recommendationRequest1))).thenReturn(recommendationRequest1);
@@ -178,7 +178,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                post("/api/recommendationrequest/post?requesterEmail=requester1@gmail.com&professorEmail=professor1@gmail.com&explanation=explanation for request 1&dateRequested=2022-01-03T00:00:00&dateNeeded=2024-02-04T01:02:03")
+                post("/api/recommendationrequest/post?requesterEmail=requester1@gmail.com&professorEmail=professor1@gmail.com&explanation=explanation for request 1&dateRequested=2022-01-03T00:00:00&dateNeeded=2024-02-04T01:02:03&done=true")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -215,6 +215,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                         .param("explanation", "explanation for request 1")
                         .param("dateRequested", "2022-01-03T00:00:00")
                         .param("dateNeeded", "2024-02-04T01:02:03")
+                        .param("done", "false")
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -253,6 +254,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                         .param("explanation", "explanation for request 1")
                         .param("dateRequested", "2022-01-03T00:00:00")
                         .param("dateNeeded", "2024-02-04T01:02:03")
+                        .param("done", "false")
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -290,6 +292,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                         .param("explanation", "explanation for request 1")
                         .param("dateRequested", "2022-01-03") // Incorrect format
                         .param("dateNeeded", "2024-02-04T01:02:03")
+                        .param("done", "false")
                         .with(csrf()))
                 .andExpect(status().isBadRequest()); // Should return 400 Bad Request
     }
@@ -306,6 +309,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                         .param("explanation", "explanation for request 1")
                         .param("dateRequested", "2022-01-03T00:00:00")
                         .param("dateNeeded", "2024-02-04T01:02:03")
+                        .param("done", "false")
                         .with(csrf()))
                 .andExpect(status().isForbidden()); // Should return 403 Forbidden
     }
