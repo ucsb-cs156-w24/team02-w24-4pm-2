@@ -211,7 +211,7 @@ public class UCSBHelpRequestControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_can_delete_a_date() throws Exception {
+        public void admin_can_delete_a_ucsbhelprequest() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-04-21T14:15");
@@ -243,7 +243,7 @@ public class UCSBHelpRequestControllerTests extends ControllerTestCase {
         
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
+        public void admin_tries_to_delete_non_existant_ucsbhelprequest_and_gets_right_error_message()
                         throws Exception {
                 // arrange
 
@@ -265,7 +265,7 @@ public class UCSBHelpRequestControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_can_edit_an_existing_ucsbdate() throws Exception {
+        public void admin_can_edit_an_existing_ucsbhelprequest() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-04-20T17:35");
@@ -312,7 +312,7 @@ public class UCSBHelpRequestControllerTests extends ControllerTestCase {
         
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_cannot_edit_ucsbdate_that_does_not_exist() throws Exception {
+        public void admin_cannot_edit_ucsbhelprequest_that_does_not_exist() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-04-20T17:35");
