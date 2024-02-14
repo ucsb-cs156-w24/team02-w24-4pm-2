@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-w24/team02-w24-4pm-2
 owner: ucsb-cs156-w24
 repo_name: team02-w24-4pm-2
-pull_requests: []
+pull_requests: [{"author":{"id":"MDQ6VXNlcjMzMjg5NDM1","is_bot":false,"login":"BK1031","name":"Bharat Kathi"},"headRefName":"Bharat-ArticleController","number":64,"title":"Article Controller Endpoints","url":"https://github.com/ucsb-cs156-w24/team02-w24-4pm-2/pull/64"}]
